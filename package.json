@@ -1,0 +1,23 @@
+{
+  "name": "android-server",
+  "version": "0.0.1",
+  "description": "android app server ",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "android",
+    "app",
+    "server"
+  ],
+  "author": "chazz",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.14.1",
+    "express": "^4.13.3",
+    "jsonwebtoken": "^5.4.0",
+    "mongoose": "^4.1.10",
+    "morgan": "^1.6.1"
+  }
+}
