@@ -7,6 +7,7 @@ var morgan = require('morgan');
 var jwt = require('jsonwebtoken');
 var config = require('./config');
 var User = require('./models/user');
+var Article = require('./models/article');
 
 var port = process.env.PORT || 8080;
 console.log('database:' + config.database);
@@ -24,6 +25,7 @@ app.get('/', function(request, response) {
 });
 
 app.get('/setup', function(request, response) {
+/*
   var user = new User({
     name: 'Username',
     password: 'password',
@@ -32,6 +34,21 @@ app.get('/setup', function(request, response) {
   user.save(function (error) {
     if (error) throw error;
     console.log('User saved successfully');
+  });
+*/
+
+  var article = new Article({
+    title: 'Title',
+    slug: 'title',
+    created: new Date(),
+    published: new Date(),
+    content: 'Lorem Ipsum...',
+    author: 'Username'
+  });
+
+  article.save(function (error) {
+    if(error) throw error;
+    console.log('Article saved');
     response.json({success : true});
   });
 });

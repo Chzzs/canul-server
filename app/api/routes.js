@@ -7,6 +7,8 @@ var morgan = require('morgan');
 var jwt = require('jsonwebtoken');
 var config = require('../config');
 var User = require('../models/user');
+var Article = require('../models/article');
+
 
 app.set('secret', config.secret);
 
@@ -71,4 +73,18 @@ router.get('/users', function(request, response) {
   });
 });
 
+router.get('/articles', function(request, response) {
+  Article.find({}, function(error, articles) {
+    response.json(articles);
+  });
+});
+
+router.get('/articles/:slug', function(request, response) {
+
+  var query = Article.where({ "slug" : request.params.slug});
+  query.findOne(function(error, article) {
+    if(error) return console.log(error);
+    response.json(article);
+  });
+});
 module.exports = router;
