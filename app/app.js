@@ -10,6 +10,11 @@ var User = require('./models/user');
 var Article = require('./models/article');
 
 var port = process.env.PORT || 8080;
+
+app.set('views', '../public/jade');
+app.set('view engine', 'jade');
+
+
 console.log('database:' + config.database);
 mongoose.connect(config.database);
 console.log('secret: '+ config.secret);
@@ -21,35 +26,30 @@ app.use(morgan('dev'));
 
 
 app.get('/', function(request, response) {
-  response.send('Hello here is the API port' + port );
+  response.render('index', {title:'API Index', message:'Authentication'});
 });
 
 app.get('/setup', function(request, response) {
-/*
+
   var user = new User({
-    name: 'Username',
+    name: 'user',
+    password: 'password',
+    admin: false
+  });
+
+  var admin = new User({
+    name: 'admin',
     password: 'password',
     admin: true
   });
+
   user.save(function (error) {
     if (error) throw error;
-    console.log('User saved successfully');
+    console.log('user saved successfully');
   });
-*/
-
-  var article = new Article({
-    title: 'Title',
-    slug: 'title',
-    created: new Date(),
-    published: new Date(),
-    content: 'Lorem Ipsum...',
-    author: 'Username'
-  });
-
-  article.save(function (error) {
-    if(error) throw error;
-    console.log('Article saved');
-    response.json({success : true});
+  admin.save(function (error) {
+    if (error) throw error;
+    console.log('admin saved successfully');
   });
 });
 

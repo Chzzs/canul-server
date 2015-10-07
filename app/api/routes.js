@@ -3,6 +3,7 @@ var app = express();
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var morgan = require('morgan');
+var slugify = require('slug');
 
 var jwt = require('jsonwebtoken');
 var config = require('../config');
@@ -75,16 +76,54 @@ router.get('/users', function(request, response) {
 
 router.get('/articles', function(request, response) {
   Article.find({}, function(error, articles) {
-    response.json(articles);
+    response.json({success: true, articles: articles});
   });
 });
 
 router.get('/articles/:slug', function(request, response) {
-
   var query = Article.where({ "slug" : request.params.slug});
   query.findOne(function(error, article) {
     if(error) return console.log(error);
-    response.json(article);
+    if(!article) {
+      response.json({success: false, message: 'article not found'});
+    }  else {
+      response.json({success: true, article: article});
+    }
   });
 });
+
+router.put('/articles', function(request, response) {
+  var title = request.body.title;
+  var slug = slugify(title, {lowercase: true});
+  var now = new Date();
+
+  var article = new Article({
+    title: title,
+    slug: slug,
+    created: now,
+    published: now,
+    content: request.body.content,
+    author: request.body.name
+  });
+
+  article.save(function (error) {
+    if(error) throw error;
+    response.json({success: true, message: 'article successfully put', article: article});
+  });
+});
+
+router.delete('/articles/:slug', function(request, response) {
+    var slug = request.body.slug;
+    var query = Article.where({ "slug" : request.params.slug});
+    query.findOneAndRemove(function(error, article) {
+      if(error) return console.log(error);
+      if(!article) {
+        console.log('lalala');
+        response.json({success: false, message: 'article not found'});
+      } else {
+        response.json({success: true, message: 'article successfully removed'});
+      }
+    });
+});
+
 module.exports = router;

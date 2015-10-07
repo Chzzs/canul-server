@@ -13,9 +13,14 @@
   ],
   "author": "chazz",
   "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Chzzs/canul-server.git"
+  },
   "dependencies": {
     "body-parser": "^1.14.1",
     "express": "^4.13.3",
+    "jade": "^1.11.0",
     "jsonwebtoken": "^5.4.0",
     "mongoose": "^4.1.10",
     "morgan": "^1.6.1",

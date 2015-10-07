@@ -1,0 +1,29 @@
+{
+  "name": "android-server",
+  "version": "0.0.1",
+  "homepage": "https://github.com/Chzzs/canul-server",
+  "authors": [
+    "Chazz <chzzs89@gmail.com>"
+  ],
+  "description": "android server",
+  "main": "jade/index.jade",
+  "moduleType": [
+    "node"
+  ],
+  "keywords": [
+    "jade",
+    "node",
+    "api",
+    "server",
+    "canul"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

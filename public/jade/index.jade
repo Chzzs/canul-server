@@ -1,0 +1,19 @@
+doctype html
+html(lang='en')
+  head
+    
+    title!= title
+    link(href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css', rel='stylesheet')
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-alpha1/jquery.js')
+    script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js')
+body(class="container-fluid")
+  h1!= message
+form(name='authenticate', method='post', action='/api/authenticate', class="col-sm-12")
+  div.form-group
+    span.label Username
+    input(type="text", name="name", placeholder="type your username")
+  div.form-group
+    label.label Password
+    input(type="password", name="password")
+  div.actions
+    input(class="btn btn-default",type="submit", value="authenticate")
