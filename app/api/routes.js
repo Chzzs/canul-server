@@ -75,7 +75,13 @@ router.get('/users', function(request, response) {
 });
 
 router.get('/articles', function(request, response) {
-  Article.find({}, function(error, articles) {
+
+  var limit = request.body.limit;
+  if(!limit) {
+    limit = 5;
+  }
+  Article.find({}).limit(limit)
+  .find(function(error, articles) {
     response.json({success: true, articles: articles});
   });
 });
@@ -102,6 +108,7 @@ router.put('/articles', function(request, response) {
     slug: slug,
     created: now,
     published: now,
+    image: request.body.image,
     content: request.body.content,
     author: request.body.name
   });
@@ -118,7 +125,6 @@ router.delete('/articles/:slug', function(request, response) {
     query.findOneAndRemove(function(error, article) {
       if(error) return console.log(error);
       if(!article) {
-        console.log('lalala');
         response.json({success: false, message: 'article not found'});
       } else {
         response.json({success: true, message: 'article successfully removed'});

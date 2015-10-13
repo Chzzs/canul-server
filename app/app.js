@@ -29,6 +29,9 @@ app.get('/', function(request, response) {
   response.render('index', {title:'API Index', message:'Authentication'});
 });
 
+app.use(express.static('public'));
+
+
 app.get('/setup', function(request, response) {
 
   var user = new User({
