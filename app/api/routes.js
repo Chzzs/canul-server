@@ -102,6 +102,8 @@ router.put('/articles', function(request, response) {
   var title = request.body.title;
   var slug = slugify(title, {lowercase: true});
   var now = new Date();
+  var extract = request.body.extract;
+  var content = request.body.content;
 
   var article = new Article({
     title: title,
@@ -109,7 +111,8 @@ router.put('/articles', function(request, response) {
     created: now,
     published: now,
     image: request.body.image,
-    content: request.body.content,
+    extract: extract,
+    content: content,
     author: request.body.name
   });
 

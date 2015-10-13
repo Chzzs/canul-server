@@ -7,7 +7,10 @@ module.exports = mongoose.model('Article', new Schema({
   created: {type: Date, default: Date.now},
   published: {type: Date, default: Date.now},
   author: String,
-  content: String,
+  extract: String,
+  content: [{
+    header: String,
+    body: String}],
   image: String,
   comments: [{
     author: String,
