@@ -104,6 +104,7 @@ router.put('/articles', function(request, response) {
   var now = new Date();
   var extract = request.body.extract;
   var content = request.body.content;
+  var comments = request.body.comments;
 
   var article = new Article({
     title: title,
@@ -113,6 +114,7 @@ router.put('/articles', function(request, response) {
     image: request.body.image,
     extract: extract,
     content: content,
+    comments: comments,
     author: request.body.name
   });
 
