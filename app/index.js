@@ -56,9 +56,8 @@ app.get('/setup', function(request, response) {
 
 });
 
-var apiRoutes = require('./api/routes.js');
-
-app.use('/api', apiRoutes);
+var routes = require("./routes/routes.js");
+app.use('/api', routes);
 
 app.listen(port);
 console.log('Please find the magic at '+port);
