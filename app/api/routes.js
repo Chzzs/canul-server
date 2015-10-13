@@ -74,13 +74,12 @@ router.get('/users', function(request, response) {
   });
 });
 
+/* [GET]/articles, serve the list of articles to the client, last-id should be specified when looking for more articles to show*/
 router.get('/articles', function(request, response) {
   //TODO choose wisely a limit
   var limit = 2;
-
   /* create the specified format to return */
   var format = {"title": true, "author": true, "extract": true, "_id": true, "published": true};
-
   /* retrieve the id of the last article served */
   var id = request.headers["last-id"];
   if(!id) {
@@ -107,11 +106,19 @@ router.get('/articles', function(request, response) {
   }
 });
 
-
+/* [GET]/articles/:id simply serve a full article to the client */
 router.get('/articles/:id', function(request, response) {
-  var query = Article.where({ "_id" : request.params.id});
-  query.findOne(function(error, article) {
-    if(error) return console.log(error);
+  /* select the id from the request parameters */
+  var id = request.params["id"];
+  /* create the specified format for the response */
+  var format = {"created": false, "slug": false, "extract": false, "__v": false, "content._id":  false };
+
+  /* construct the query */
+  var query = Article.where({ "_id" : id});
+
+  /* query the article */
+  query.findOne({}, format, function(error, article) {
+    if(error) { console.log(error);}
     if(!article) {
       response.json({"success": false, "message": "article not found"});
     }  else {
