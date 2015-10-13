@@ -8,6 +8,7 @@ var jwt = require('jsonwebtoken');
 var config = require('./config');
 var User = require('./models/user');
 var Article = require('./models/article');
+var Comment = require('./models/comment');
 
 var port = process.env.PORT || 8080;
 
@@ -33,27 +34,26 @@ app.use(express.static('public'));
 
 
 app.get('/setup', function(request, response) {
-
   var user = new User({
     name: 'user',
     password: 'password',
-    admin: false
-  });
+    admin: false });
 
   var admin = new User({
     name: 'admin',
     password: 'password',
-    admin: true
-  });
+    admin: true  });
 
   user.save(function (error) {
     if (error) throw error;
     console.log('user saved successfully');
   });
+
   admin.save(function (error) {
     if (error) throw error;
     console.log('admin saved successfully');
   });
+
 });
 
 var apiRoutes = require('./api/routes.js');
