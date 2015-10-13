@@ -1,6 +1,8 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
+
+/* Article Model */
 module.exports = mongoose.model('Article', new Schema({
   "title": String,
   "slug": String,
