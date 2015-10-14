@@ -6,6 +6,7 @@ var morgan = require('morgan');
 var slugify = require('slug');
 
 var Comment = require('../models/comment');
+var Article = require('../models/article');
 
 app.use(bodyParser.urlencoded({ extended: false}));
 app.use(bodyParser.json());
